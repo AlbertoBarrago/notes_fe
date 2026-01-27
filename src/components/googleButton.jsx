@@ -52,7 +52,7 @@ const CustomGoogleLoginButton = ({ operation, isLogin = false }) => {
             }}
         >
 
-            {isLogin ? 'Log In' : 'Sign Up'} <GoogleIcon className="mr-2" />oogle
+             <GoogleIcon className="mr-2" />
         </Button>
     );
 };
