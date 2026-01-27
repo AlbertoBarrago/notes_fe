@@ -146,14 +146,17 @@ export default function ExploreRoute() {
                 <ResponsiveMasonry
                     columnsCountBreakPoints={{350: 1, 500: 2, 750: 3, 1000: 4}}
                 >
-                    <Masonry gutter='10px'
-                             className="flex flex-wrap justify-center gap-4 mt-4 p-5">
-                        {loading && !notes ? (
-                            Array(pagination.page_size).fill(null).map((_, index) => (
+                    {loading && !notes ? (
+                        <Masonry gutter='10px'
+                                 className="flex flex-wrap justify-center gap-4 mt-4 p-5">
+                            {Array(pagination.page_size).fill(null).map((_, index) => (
                                 <SkeletonComp key={index}/>
-                            ))
-                        ) : notes.length > 0 ? (
-                            notes.map((note,index) => (
+                            ))}
+                        </Masonry>
+                    ) : notes.length > 0 ? (
+                        <Masonry gutter='10px'
+                                 className="flex flex-wrap justify-center gap-4 mt-4 p-5">
+                            {notes.map((note,index) => (
                                 <NotesCard
                                     ref={element => {
                                         notesRefs.current[index] = element;
@@ -167,15 +170,15 @@ export default function ExploreRoute() {
                                         handleNoteClick(note)
                                     }}
                                 />
-                            ))
-                        ) : (
-                            <div className="col-span-full flex items-center justify-center text-center mt-40">
-                                <p className="text-primary-400 text-2xl">
-                                    No notes found.
-                                </p>
-                            </div>
-                        )}
-                    </Masonry>
+                            ))}
+                        </Masonry>
+                    ) : (
+                        <div className="flex justify-center items-center min-h-[50vh]">
+                            <p className="text-primary-400 text-2xl text-center">
+                                No notes found.
+                            </p>
+                        </div>
+                    )}
                 </ResponsiveMasonry>
 
                 {notes.length > 0 && (

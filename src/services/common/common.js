@@ -16,6 +16,9 @@ class CommonService {
         localStorage.setItem('token', data.access_token);
         localStorage.setItem('token_type', data.token_type);
         localStorage.setItem('user', JSON.stringify(data.user));
+        if (data.refresh_token) {
+            localStorage.setItem('refreshToken', data.refresh_token);
+        }
     }
 }
 

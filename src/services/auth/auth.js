@@ -154,6 +154,7 @@ class AuthService {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         localStorage.removeItem('token_type');
+        localStorage.removeItem('refreshToken');
     }
 
     /**
