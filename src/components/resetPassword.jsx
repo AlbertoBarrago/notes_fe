@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {toast} from "sonner";
+import {getErrorMessage} from "@/lib/errors.js";
 
 export default function ResetPasswordForm({ className }) {
     const navigate = useNavigate();
@@ -42,7 +43,7 @@ export default function ResetPasswordForm({ className }) {
                 navigate('/');
             }
         } catch (error) {
-            toast.error(error.message);
+            toast.error(getErrorMessage(error));
             console.error(error);
         } finally {
             setIsLoading(false);

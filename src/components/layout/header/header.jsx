@@ -23,6 +23,8 @@ import {
 } from "@/components/ui/dropdown-menu"
 import {Menu, Pencil, LogOut, Trash2, KeyRound} from "lucide-react";
 import {useState} from "react";
+import {toast} from "sonner";
+import {getErrorMessage} from "@/lib/errors.js";
 import SendResetEmailDialog from "@/components/dialogs/send_reset_email.jsx";
 import EditProfileDialog from "@/components/dialogs/edit_user.jsx";
 import DeleteAccountDialog from "@/components/dialogs/delete_account.jsx";
@@ -61,7 +63,9 @@ export default function Header() {
     const sendEmail = () => {
         auth.sendResetEmail(user?.username).then(() =>
             setOpenResetDialog(false)
-        )
+        ).catch((error) => {
+            toast.error(getErrorMessage(error))
+        })
     }
 
     const editProfile = (data) => {
@@ -72,12 +76,16 @@ export default function Header() {
         }
         auth.updateUser(editData).then(() => {
             setOpenEditDialog(false)
+        }).catch((error) => {
+            toast.error(getErrorMessage(error))
         })
     }
 
     const deleteAccount = () => {
         auth.deleteUser().then(() => {
             performLogout()
+        }).catch((error) => {
+            toast.error(getErrorMessage(error))
         })
     }
 

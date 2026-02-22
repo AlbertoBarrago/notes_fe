@@ -20,6 +20,7 @@ import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import {toast} from "sonner";
 import {SkeletonComp} from "@/components/skeleton.jsx";
 import {cardAnimation, noteAnimations} from "@/lib/animation.js";
+import {getErrorMessage, isAuthError} from "@/lib/errors.js";
 import anime from "animejs";
 
 
@@ -81,15 +82,20 @@ export default function NotesList() {
      */
     const fetchNotes = useCallback(async () => {
         setOperationLoading(true)
-        const notesFetched = await noteService.getNotes(pagination.page, pagination.page_size, query, "desc");
-        setNotes(notesFetched.items);
-        setPagination({
-            page: notesFetched.page,
-            page_size: notesFetched.page_size,
-            total: notesFetched.total,
-            total_pages: notesFetched.total_pages,
-        });
-        setOperationLoading(false)
+        try {
+            const notesFetched = await noteService.getNotes(pagination.page, pagination.page_size, query, "desc");
+            setNotes(notesFetched.items);
+            setPagination({
+                page: notesFetched.page,
+                page_size: notesFetched.page_size,
+                total: notesFetched.total,
+                total_pages: notesFetched.total_pages,
+            });
+        } catch (error) {
+            handleError(error, "Error fetching notes. Please try again.");
+        } finally {
+            setOperationLoading(false)
+        }
     }, [pagination.page, pagination.page_size, query]);
     /**
      * Creates a new note
@@ -231,13 +237,15 @@ export default function NotesList() {
      * @param {string} [message] - Optional custom error message
      * @throws {Error} Rethrows the error after handling
      */
-    const handleError = (message = "", error = null) => {
+    const handleError = (error = null, message = "") => {
         console.error(error, message)
-        toast.error(message, {
+        toast.error(message || getErrorMessage(error), {
             description: 'Something went wrong. Please try again.',
         })
-        authService.logout();
-        navigate('/');
+        if (isAuthError(error)) {
+            authService.logout();
+            navigate('/');
+        }
     };
 
 

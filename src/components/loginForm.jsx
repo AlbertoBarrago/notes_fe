@@ -18,6 +18,8 @@ import {Input} from "@/components/ui/input"
 import SendResetEmailDialog from "@/components/dialogs/send_reset_email.jsx";
 import AuthService from "@/api/auth/auth.js";
 import CustomGoogleLoginButton from "@/components/googleButton.jsx";
+import {getErrorMessage} from "@/lib/errors.js";
+import {toast} from "sonner";
 
 const SIGN_IN = "signing";
 const SIGN_UP = "signup";
@@ -54,7 +56,9 @@ export function LoginForm({
         if(data)
             auth.sendResetEmailFromEmail(data).then(() =>
                 setOpenResetDialog(false)
-            )
+            ).catch((error) => {
+                toast.error(getErrorMessage(error))
+            })
     }
 
     return (

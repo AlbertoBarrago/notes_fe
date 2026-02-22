@@ -1,1 +1,0 @@
-- [ ] Verify animation for list noteList and ExploreList

@@ -1,5 +1,7 @@
 import { useGoogleLogin } from '@react-oauth/google';
 import { Button } from '@/components/ui/button.jsx';
+import {toast} from "sonner";
+import {getErrorMessage} from "@/lib/errors.js";
 const GoogleIcon = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -34,9 +36,13 @@ const CustomGoogleLoginButton = ({ operation, isLogin = false }) => {
                 await operation(payload, isLogin);
             } catch (error) {
                 console.error('OAuth Error:', error);
+                toast.error(getErrorMessage(error))
             }
         },
-        onError: (error) => console.error('Login Failed:', error),
+        onError: (error) => {
+            console.error('Login Failed:', error);
+            toast.error(getErrorMessage(error))
+        },
         scope: 'email profile openid'
     });
 

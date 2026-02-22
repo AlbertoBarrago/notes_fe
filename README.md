@@ -1,89 +1,119 @@
-# Personal NotesCard App 🚀
+# Notez
 
-A modern note-taking application built with React and best practices for managing personal notes with a clean, responsive interface.
+A full-stack note-taking application built with React and a FastAPI backend. Supports personal note management with search, pagination, and a public explore feed. Includes JWT authentication, Google OAuth, and a responsive masonry layout.
 
-## Key Features ✨
+---
 
-- Create, read, update and delete notes
-- Search and filter functionality
-- Responsive design
-- Dark/Light theme support
-- Pagination with optimized loading
-- Optimistic UI updates
-- Authentication integration
+## Features
 
-## Tech Stack 🛠️
+- **Notes CRUD** — create, edit, and delete notes with title, content, tags, and optional image
+- **Search & filter** — real-time query with tag filtering across all notes
+- **Public / private visibility** — share notes to the explore feed or keep them private
+- **Masonry layout** — responsive card grid that adapts from 1 to 4 columns
+- **Pagination** — server-side pagination with configurable page size
+- **Authentication** — JWT with automatic refresh token handling; Google OAuth supported
+- **Password reset** — email-based reset flow
+- **Theme** — light / dark mode persisted to localStorage
+- **Animations** — entry/exit transitions via Anime.js and Framer Motion
 
-### Frontend Core
-- React 18 with Hooks
-- React Router v6 with data loading
-- TailwindCSS + ShadcnUI
-- Lucide React icons
+---
 
-### Development Tools
-- Vite
-- ESLint
-- JSDoc documentation
-- Git version control
+## Tech Stack
 
-## Architecture 🏗️
+| Layer | Technology |
+|---|---|
+| UI framework | React 18 |
+| Routing | React Router v6 (data router with loaders) |
+| Styling | TailwindCSS + ShadcnUI (Radix UI) |
+| HTTP client | Axios with request/response interceptors |
+| Forms | React Hook Form |
+| Animations | Anime.js, Framer Motion |
+| Notifications | Sonner |
+| Icons | Lucide React |
+| Build tool | Vite |
+| Linter | ESLint |
 
-The project follows a clean, modular architecture:
+---
 
-## Project Structure 📁
+## Project Structure
 
-```text
+```
 src/
-├── components/          # UI components like buttons, cards, modals
-│   ├── ui/             # Base UI components (buttons, inputs)
-│   ├── layout/         # Layout components (header, footer)
-│   └── dialogs/        # Modal components
+├── api/                 # HTTP layer — thin class wrappers around API endpoints
+│   ├── auth/            # Login, logout, OAuth, password reset, user CRUD
+│   ├── notes/           # Notes CRUD and pagination
+│   └── register/        # Registration endpoint
 │
-├── services/           # API and business logic
-│   ├── notes/          # Notes CRUD operations
-│   └── login/          # Authentication services
+├── services/            # Business logic and shared utilities
+│   └── common/          # Token and user session helpers (localStorage)
 │
-├── routes/             # Route components and loaders
-│   ├── note.jsx        # Note routes and handlers
-│   └── login.jsx       # Auth routes
+├── interceptor/         # Axios instance with token refresh and auth logic
 │
-├── context/            # Global state management
-│   └── auth/           # Authentication context
+├── routes/              # Page-level components with React Router loaders
 │
-└── lib/               # Utility functions and helpers
-    ├── utils.js       # Common utilities
-    └── constants.js   # App constants
+├── components/          # UI components
+│   ├── ui/              # ShadcnUI base components
+│   ├── layout/          # Header and footer
+│   ├── dialogs/         # Modal dialogs for CRUD and user management
+│   └── theme/           # Theme selector
+│
+├── context/             # React context providers (theme)
+├── config/              # Route configuration
+└── lib/                 # Shared utilities (error helpers, animations, cn)
 ```
 
+---
 
-## Best Practices 💡
+## Getting Started
 
-- Component-based architecture
-- Service layer pattern for API calls
-- Global context for state management
-- Route-based code splitting
-- TypeScript documentation with JSDoc
-- Error boundaries
-- Loading states and skeletons
-- Responsive design patterns
-- Optimistic UI updates
-
-## Getting Started 🚀
+**Prerequisites:** Node.js 18+, a running instance of the [Notez API](https://github.com/albertobarrago/notes-be).
 
 ```bash
 # Clone the repository
 git clone https://github.com/albertobarrago/notes-card.git
-
-# Navigate to project directory
 cd notes-card
 
 # Install dependencies
 npm install
 
-# Start development server
+# Configure environment
+cp .env.example .env
+# Fill in the values — see Environment Variables below
+
+# Start the development server
 npm run dev
 ```
 
+---
 
-## TODOs: 
-- [ ] Add error handling on note 
+## Environment Variables
+
+Create a `.env` file in the project root:
+
+```env
+VITE_DEV_BASE_URL=http://localhost:8000/api/v1
+VITE_PROD_BASE_URL=https://your-backend.railway.app/api/v1
+VITE_GOOGLE_CLIENT_ID=your_google_oauth_client_id
+VITE_NOTIFIER_DURATION_SECONDS=1100
+```
+
+---
+
+## Scripts
+
+```bash
+npm run dev            # Start Vite dev server
+npm run build          # Production build
+npm run preview        # Preview production build locally
+npm run lint           # Run ESLint
+npm run deploy         # Deploy via Railway CLI
+npm run version:patch  # Bump patch version
+npm run version:minor  # Bump minor version
+npm run version:major  # Bump major version
+```
+
+---
+
+## Backend
+
+This frontend connects to a FastAPI backend. Source: [albertobarrago/notes-be](https://github.com/albertobarrago/notes-be).
