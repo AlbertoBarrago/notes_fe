@@ -66,7 +66,7 @@ src/
 
 ## Getting Started
 
-**Prerequisites:** Node.js 18+, a running instance of the [Notez API](https://github.com/albertobarrago/notes-be).
+**Prerequisites:** Node.js 18+, a running instance of the [Notez API](https://github.com/AlbertoBarrago/notes_be).
 
 ```bash
 # Clone the repository
