@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/form"
 import {Input} from "@/components/ui/input"
 import SendResetEmailDialog from "@/components/dialogs/send_reset_email.jsx";
-import AuthService from "@/services/auth/auth.js";
+import AuthService from "@/api/auth/auth.js";
 import CustomGoogleLoginButton from "@/components/googleButton.jsx";
 
 const SIGN_IN = "signing";

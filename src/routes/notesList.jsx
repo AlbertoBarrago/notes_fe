@@ -6,12 +6,12 @@
 import Layout from "../components/layout/layout.jsx";
 import {NotesCard} from "@/components/notesCard.jsx";
 import {useEffect, useState, useCallback, useRef, useLayoutEffect, createRef} from "react";
-import NotesService from "@/services/notes/notes.js";
+import NotesService from "@/api/notes/notes.js";
 import NoteEditModal from "@/components/dialogs/edit_notes.jsx";
 import NoteDeleteModal from "@/components/dialogs/delete_notes.jsx";
 import NoteAddNoteModal from "@/components/dialogs/add_notes.jsx";
 import {Button} from "@/components/ui/button.jsx";
-import AuthService from "@/services/auth/auth.js";
+import AuthService from "@/api/auth/auth.js";
 import {PlusIcon} from "lucide-react";
 import {FilterSearch} from "@/components/filterSearch.jsx";
 import {useLoaderData, useNavigate, useNavigation} from "react-router-dom";
@@ -67,6 +67,7 @@ export default function NotesList() {
     })
     const [isInitialLoad, setIsInitialLoad] = useState(true);
     const isLoading = routeLoading || operationLoading
+    const notesRefs = useRef({})
 
 
 
@@ -132,10 +133,7 @@ export default function NotesList() {
     const deleteNote = async (note_id) => {
         try {
             setOperationLoading(true);
-            const elementToRemove = notesRefs.current.find(
-                ref => ref?.getAttribute('data-note-id') === note_id
-            );
-            debugger;
+            const elementToRemove = notesRefs.current[note_id];
             if (elementToRemove) {
                 await noteAnimations.exit(elementToRemove).finished;
             }
@@ -236,7 +234,7 @@ export default function NotesList() {
     const handleError = (message = "", error = null) => {
         console.error(error, message)
         toast.error(message, {
-            description: 'shit happens',
+            description: 'Something went wrong. Please try again.',
         })
         authService.logout();
         navigate('/');
@@ -269,6 +267,7 @@ export default function NotesList() {
                             {notes.map((note,index) => (
                                 <NotesCard
                                     key={note.id}
+                                    ref={(el) => { notesRefs.current[note.id] = el; }}
                                     note={note}
                                     onClick={(e) => {
                                         e.preventDefault();

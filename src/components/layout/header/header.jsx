@@ -6,7 +6,7 @@ import {
 import {NavLink, useNavigate} from "react-router-dom";
 import {ThemeSelector} from "@/components/theme/themeSelector.jsx";
 import {Button} from "@/components/ui/button.jsx";
-import AuthService from "@/services/auth/auth.js";
+import AuthService from "@/api/auth/auth.js";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.jsx";
 import {
     Sheet,

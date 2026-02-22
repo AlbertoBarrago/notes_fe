@@ -6,8 +6,8 @@
 import Layout from "../components/layout/layout.jsx";
 import {NotesCard} from "@/components/notesCard.jsx";
 import {useEffect, useState, useCallback, useRef, useLayoutEffect} from "react";
-import NotesService from "@/services/notes/notes.js";
-import AuthService from "@/services/auth/auth.js";
+import NotesService from "@/api/notes/notes.js";
+import AuthService from "@/api/auth/auth.js";
 import {FilterSearch} from "@/components/filterSearch.jsx";
 import {useLoaderData, useNavigate, useNavigation} from "react-router-dom";
 import ErrorMessage from "@/components/error.jsx";

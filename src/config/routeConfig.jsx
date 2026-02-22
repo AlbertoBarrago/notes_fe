@@ -1,7 +1,7 @@
 // Optimized lazy imports with preload and prefetch directives
 import {lazy, Suspense} from "react";
-import AuthService from "@/services/auth/auth.js";
-import NotesService from "@/services/notes/notes.js";
+import AuthService from "@/api/auth/auth.js";
+import NotesService from "@/api/notes/notes.js";
 import {redirect} from "react-router-dom";
 import Loader from '@/components/loader.jsx'
 

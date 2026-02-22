@@ -42,7 +42,7 @@ export default function NoteEditModal({isOpen, onClose, onSave, note}) {
             content: content.trim(),
             is_public: isPublic,
             image_url: imageUrl || null,
-            tags: tags
+            tags: tags.filter(tag => tag !== '')
         })
         onClose()
     }

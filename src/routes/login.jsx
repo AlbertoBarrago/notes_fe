@@ -3,7 +3,7 @@
  * @module AuthRoute
  */
 import {useState} from "react";
-import AuthService from "@/services/auth/auth.js";
+import AuthService from "@/api/auth/auth.js";
 import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
 import {LoginForm} from "@/components/loginForm.jsx";

@@ -1,5 +1,5 @@
 import axios_instance from "@/interceptor/axios.js";
-import CommonService from "@/services/common/common.js";
+import CommonService from "@/api/common/common.js";
 
 /**
  * @typedef {Object} AuthResp
