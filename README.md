@@ -1,4 +1,4 @@
-# Notez
+# notes_fe
 
 A full-stack note-taking application built with React and a FastAPI backend. Supports personal note management with search, pagination, and a public explore feed. Includes JWT authentication, Google OAuth, and a responsive masonry layout.
 
